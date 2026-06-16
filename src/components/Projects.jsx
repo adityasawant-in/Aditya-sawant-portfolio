@@ -108,7 +108,7 @@ function ProjectCard({ project, index }) {
                 e.currentTarget.style.background = `${project.accentColor}15`;
               }}
             >
-              Live Demo <ExternalLink size={13} />
+              {/* Live Demo <ExternalLink size={13} /> */}
             </a>
           </div>
         </div>
