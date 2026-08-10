@@ -12,7 +12,7 @@ function ProjectCard({ project, index }) {
       className="group relative"
     >
       <div
-        className={`glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-500 h-full flex flex-col`}
+        className="glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-500 h-full flex flex-col"
         style={{
           transition: 'all 0.5s ease',
         }}
@@ -26,7 +26,9 @@ function ProjectCard({ project, index }) {
         />
 
         {/* Image / Visual */}
-        <div className={`relative bg-gradient-to-br ${project.gradient} h-48 flex items-center justify-center overflow-hidden`}>
+        <div
+          className={`relative bg-gradient-to-br ${project.gradient} h-48 flex items-center justify-center overflow-hidden`}
+        >
           {/* Grid pattern */}
           <div className="absolute inset-0 dot-grid opacity-30" />
 
@@ -34,7 +36,11 @@ function ProjectCard({ project, index }) {
           <motion.div
             className="relative z-10 text-7xl"
             animate={{ y: [-4, 4, -4] }}
-            transition={{ duration: 4 + index, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{
+              duration: 4 + index,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
           >
             {project.emoji}
           </motion.div>
@@ -50,7 +56,9 @@ function ProjectCard({ project, index }) {
           {/* Glowing border bottom */}
           <div
             className="absolute bottom-0 left-0 right-0 h-px opacity-60"
-            style={{ background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)` }}
+            style={{
+              background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)`,
+            }}
           />
         </div>
 
@@ -59,6 +67,7 @@ function ProjectCard({ project, index }) {
           <h3 className="font-display font-bold text-xl text-text-primary mb-3 group-hover:text-accent-cyan transition-colors duration-300">
             {project.title}
           </h3>
+
           <p className="text-text-muted text-sm leading-relaxed mb-4 flex-1">
             {project.description}
           </p>
@@ -81,36 +90,49 @@ function ProjectCard({ project, index }) {
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors text-sm font-mono group/link"
-            >
-              <Github size={16} className="group-hover/link:text-accent-cyan transition-colors" />
-              Code
-            </a>
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 ml-auto text-sm font-mono px-4 py-2 rounded-lg transition-all duration-300"
-              style={{
-                background: `${project.accentColor}15`,
-                border: `1px solid ${project.accentColor}30`,
-                color: project.accentColor,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = `${project.accentColor}25`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = `${project.accentColor}15`;
-              }}
-            >
-              {/* Live Demo <ExternalLink size={13} /> */}
-            </a>
-          </div>
+          {(project.github || project.live) && (
+            <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+              {/* GitHub */}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors text-sm font-mono group/link"
+                >
+                  <Github
+                    size={16}
+                    className="group-hover/link:text-accent-cyan transition-colors"
+                  />
+                  Code
+                </a>
+              )}
+
+              {/* Live / Demo */}
+              {project.live && (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 ml-auto text-sm font-mono px-4 py-2 rounded-lg transition-all duration-300"
+                  style={{
+                    background: `${project.accentColor}15`,
+                    border: `1px solid ${project.accentColor}30`,
+                    color: project.accentColor,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = `${project.accentColor}25`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = `${project.accentColor}15`;
+                  }}
+                >
+                  {project.liveLabel || 'Live Demo'}
+                  <ExternalLink size={13} />
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
@@ -136,9 +158,15 @@ export default function Projects() {
           transition={{ duration: 0.7 }}
           className="mb-16"
         >
-          <p className="font-mono text-accent-cyan text-sm tracking-widest uppercase mb-3">Things I've built</p>
+          <p className="font-mono text-accent-cyan text-sm tracking-widest uppercase mb-3">
+            Things I've built
+          </p>
+
           <div className="flex items-center gap-4">
-            <h2 className="section-heading gradient-text">Projects</h2>
+            <h2 className="section-heading gradient-text">
+              Projects
+            </h2>
+
             <div className="flex-1 h-px bg-gradient-to-r from-accent-cyan/30 to-transparent max-w-xs" />
           </div>
         </motion.div>
@@ -146,11 +174,15 @@ export default function Projects() {
         {/* Projects grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={i}
+            />
           ))}
         </div>
 
-        {/* View more */}
+        {/* View all GitHub */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
