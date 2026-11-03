@@ -171,7 +171,7 @@ export const portfolioData = {
       "Three.js",
     ],
     github: null,
-    live: "https://home-vision-prod.vercel.app/",
+    live: "https://homewise-vision-prod.vercel.app/",
     liveLabel: "Live Demo",
     featured: false,
   },
